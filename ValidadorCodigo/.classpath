@@ -13,8 +13,5 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/Users/Alexandre/Documents/jars/jstl-api-1.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Alexandre/Documents/jars/jstl-impl-1.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Alexandre/Downloads/jsoup-1.6.3.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
