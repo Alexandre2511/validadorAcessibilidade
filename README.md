@@ -1,2 +1,2 @@
-Validador Acessibilidade
+Validador Acessibilidade.
 =========
