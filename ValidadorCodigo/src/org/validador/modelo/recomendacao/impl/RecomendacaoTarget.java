@@ -14,38 +14,39 @@ public class RecomendacaoTarget implements RecomendacaoCodigo {
 
 	@Override
 	public String getDescricao() {
-		return "O site não pode abrir outras páginas.";
+		return "O site não pode abrir outras páginas que não sejam solicitadas pelo usuário.";
 	}
 
 	@Override
 	public String executa(Document doc) {
-		String elemTarget = "";
+		String elementoTarget = "";
 		Elements targetBlank = doc.select("a[target=_blank");
-		if (!targetBlank.isEmpty()) {
 			for (Element element : targetBlank) {
-				elemTarget += "\n" + element;
+				elementoTarget += "\n" + element;
 			}
-		}
 
 		Elements targetNew = doc.select("a[target=_new");
-		if (!targetNew.isEmpty()) {
 			for (Element element : targetNew) {
-				elemTarget += "\n" + element ;
+				elementoTarget += "\n" + element ;
 			}
-		}
 
 		Element execucaoAutomatica = doc.select("body").first();
 		String linkHref = execucaoAutomatica.attr("onload");
 		if (!linkHref.isEmpty()) {
-			elemTarget += "\n"+ linkHref;
+			elementoTarget += "\n"+ linkHref;
 		}
 
-		return elemTarget;
+		return elementoTarget;
 	}
 
 	@Override
 	public String getRecomendacao() {
 		return "09";
+	}
+	
+	@Override
+	public String getExemplo() {
+		return "<a hre=\"#\" target=\"_blank\">Nova aba</a>";
 	}
 
 }

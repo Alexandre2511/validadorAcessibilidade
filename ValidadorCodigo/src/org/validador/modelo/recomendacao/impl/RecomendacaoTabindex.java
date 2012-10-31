@@ -19,31 +19,31 @@ public class RecomendacaoTabindex implements RecomendacaoCodigo {
 
 	@Override
 	public String executa(Document doc) {
-		String elemTab = "";
-		String elemTemp = "";
+		String elementoTabindex = "";
+		String elementoTemporario = "";
 		Elements tabindex = doc.select("a[tabindex]");
 		int valorInicial = 0;
-		if (!tabindex.isEmpty()) {
-			for (Element element : tabindex) {
-				String valor = element.attr("tabindex");
-				int valorInteiro = Integer.parseInt(valor);
-				if (valorInicial < valorInteiro) {
-					valorInicial = valorInteiro;
-					elemTemp += "\n" + element;
-				} else {
-					elemTemp += "\n" + element;
-					elemTab = "\n" + elemTemp;
-				}
-
+		for (Element element : tabindex) {
+			String valor = element.attr("tabindex");
+			int valorInteiro = Integer.parseInt(valor);
+			if (valorInicial < valorInteiro) {
+				valorInicial = valorInteiro;
+				elementoTemporario += "\n" + element;
+			} else {
+				elementoTemporario += "\n" + element;
+				elementoTabindex = "\n" + elementoTemporario;
 			}
 		}
-
-		return elemTab;
+		return elementoTabindex;
 	}
 
 	@Override
 	public String getRecomendacao() {
 		return "04";
 	}
-
+	
+	@Override
+	public String getExemplo() {
+		return "<ul><li><a href=\"#\" tabindex=\"1\"></a></li>...<li><a href=\"#\" tabindex=\4\"></a></li></ul>";
+	}
 }

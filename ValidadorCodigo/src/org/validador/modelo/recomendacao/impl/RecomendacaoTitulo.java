@@ -13,17 +13,19 @@ public class RecomendacaoTitulo implements RecomendacaoBoolean{
 
 	@Override
 	public String getDescricao() {
-		return "A página deve possuir um titulo.";
+		return "A página deve possuir um titulo que descreva o site, para " +
+				"auxiliar o usuário que utiliza um leitor de tela situar-se no site, " +
+				"tendo em vista que esta será a primeira informação lida assim que acessar o sitio.";
 	}
 
 	@Override
 	public Boolean executa(Document doc) {
-		boolean elemTit = false;
+		boolean elementoTitulo = false;
 		Elements title = doc.select("title");
 		if (title.isEmpty()) {
-			elemTit = true;
+			elementoTitulo = true;
 		}
-		return elemTit;
+		return elementoTitulo;
 	}
 
 	@Override
@@ -31,5 +33,9 @@ public class RecomendacaoTitulo implements RecomendacaoBoolean{
 		return "17";
 		
 	}
-
+	
+	@Override
+	public String getExemplo() {
+		return "< title >Titulo para o site < /title >";
+	}
 }

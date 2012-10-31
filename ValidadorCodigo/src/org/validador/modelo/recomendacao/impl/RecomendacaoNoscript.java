@@ -13,23 +13,27 @@ public class RecomendacaoNoscript implements RecomendacaoBoolean {
 
 	@Override
 	public String getDescricao() {
-		return "Quando utiliza-se de javascript o usuário necessita ser informado caso seu computador não ofereça suporte a esta tecnologia.";
+		return "Ao utilizar javascript em uma página, é necessário informar ao usuário caso seu computador não ofereça suporte a esta tecnologia.";
 	}
 
 	@Override
 	public Boolean executa(Document doc) {
-		boolean elemNoscript = false;
+		boolean elementoNoscript = false;
 		Elements script = doc.select("script");
 		Elements noscript = doc.select("noscript");
 		if (script.isEmpty() && noscript.isEmpty()) {
-			elemNoscript = true;
+			elementoNoscript = true;
 		}
-		return elemNoscript;
+		return elementoNoscript;
 	}
 
 	@Override
 	public String getRecomendacao() {
 		return "10";
 	}
-
+	
+	@Override
+	public String getExemplo() {
+		return "<noscript>...</noscript>";
+	}
 }

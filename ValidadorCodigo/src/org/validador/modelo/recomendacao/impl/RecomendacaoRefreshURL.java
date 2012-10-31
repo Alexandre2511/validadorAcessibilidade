@@ -34,5 +34,9 @@ public class RecomendacaoRefreshURL implements RecomendacaoBoolean{
 	public String getRecomendacao() {
 		return "12";
 	}
-
+	
+	@Override
+	public String getExemplo() {
+		return "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"20;URL=http://testeemag.appspot.com\">";
+	}
 }

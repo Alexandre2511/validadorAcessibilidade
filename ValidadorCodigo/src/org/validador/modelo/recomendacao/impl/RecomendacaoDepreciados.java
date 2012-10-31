@@ -8,17 +8,17 @@ public class RecomendacaoDepreciados implements RecomendacaoCodigo {
 
 	@Override
 	public String getNome() {
-		return "Elementos depreciados pela W3C";
+		return "Elementos descontinuados pela W3C";
 	}
 
 	@Override
 	public String getDescricao() {
-		return "Estes elementos foram depreciados segundo a W3C";
+		return "Estes elementos foram descontinuados segundo a W3C";
 	}
 
 	@Override
 	public String executa(Document doc) {
-		String elemDepre = "";
+		String elementoDescontinuado = "";
 		Elements frame = doc.select("frame");
 		Elements applet = doc.select("applet");
 		Elements blink = doc.select("blink");
@@ -37,7 +37,7 @@ public class RecomendacaoDepreciados implements RecomendacaoCodigo {
 				|| !center.isEmpty() || !dir.isEmpty() || !align.isEmpty()
 				|| !font.isEmpty() || !isindex.isEmpty() || !menu.isEmpty()
 				|| !strike.isEmpty() || !u.isEmpty()) {
-			elemDepre += "\n"+ frame.toString() + "\n" + applet.toString() + "\n"
+			elementoDescontinuado += "\n"+ frame.toString() + "\n" + applet.toString() + "\n"
 					+ blink.toString() + "\n" + marquee.toString() + "\n"
 					+ basefont.toString() + "\n" + center.toString() + "\n"
 					+ dir.toString() + "\n" + align.toString() + "\n"
@@ -46,11 +46,16 @@ public class RecomendacaoDepreciados implements RecomendacaoCodigo {
 					+ u.toString();
 		}
 
-		return elemDepre;
+		return elementoDescontinuado;
 	}
 
 	@Override
 	public String getRecomendacao() {
-		return "Depreciados";
+		return "Descontinuados";
+	}
+	
+	@Override
+	public String getExemplo() {
+		return "Não utilizar elementos descontinuados";
 	}
 }

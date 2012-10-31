@@ -12,97 +12,97 @@
 <link rel="stylesheet" type="text/css" href="static/css/estilo.css">
 <script type="text/javascript" src="static/syntaxhighlighter/scripts/shCore.js"></script>
 <script type="text/javascript" src="static/syntaxhighlighter/scripts/shBrushJava.js"></script>
+<script type="text/javascript" src="static/syntaxhighlighter/scripts/shBrushSql.js"></script>
 <link type="text/css" rel="stylesheet" href="static/syntaxhighlighter/styles/shCoreDefault.css"/>
 <script type="text/javascript">SyntaxHighlighter.all();</script>
 
 <script type="text/javascript" src="static/js/jquery.js"></script>
-<script type="text/javascript"> 
-jQuery.fn.toggleText = function(a,b) {
-	return   this.html(this.html().replace(new RegExp("("+a+"|"+b+")"),function(x){return(x==a)?b:a;}));
-}
-$(document).ready(function(){
-	$('.tgl').before('<span id="moscod">Mostrar Conteúdo</span>');
-	$('.tgl').css('display', 'none')
-	$('span', '#box-toggle').click(function() {
-	$(this).next().slideToggle('slow')
-	.siblings('.tgl:visible').slideToggle('fast');
-	// aqui começa o funcionamento do plugin
-		$(this).toggleText('Mostrar','Ocultar')
-			.siblings('span').next('.tgl:visible').prev()
-			.toggleText('Mostrar','Ocultar')
-		});
-})
+
+<script>
+        $(document).ready(function(){
+        $(this).find(".expandicomprimi").hide();
+        $("a.expandi").click(function(event){
+        event.preventDefault();
+        var div = $(this).parent().prev('div'); // ( 1 )
+        if( div.is(':hidden') ) // ( 2 )
+        $(this).text( "-" );
+        else
+        $(this).text( "+" );
+        $(div).toggle('slow');
+        });
+  });
 </script>
+
 </head>
 
 <body>
 <div id="teste">
-<jsp:include page="validacao.jsp"></jsp:include>
+	<jsp:include page="validacao.jsp"></jsp:include>
 </div>
 <br><br>
 <div id="main-content">
-	<!-- Mostra o conteudo do request -->
-	<%-- <c:forEach items="${requestScope.resultados}" var="rec"> --%>
-	<%-- 	<br><c:out value="${rec}"></c:out> --%>
-	<%-- </c:forEach> --%>
-	
-	<div id="box-toggle">
 		<%
 			String site = (String) request.getAttribute("site");
 		%>
-		<h2 id="resrec">Site avaliado:  <%=site %></h2>
+		<div id="siteAvaliado" class="siteavaliado">Site avaliado:  <a href="#" accesskey="1"><%=site %></a></div>
 		
-		<h2 id="resrec">Recomendações</h2>
 		<%
 			Map<Recomendacao, String> results = (Map<Recomendacao, String>) request.getAttribute("resultados");
-		
+		%>
+		<div class="recomencao" id="titulorecomendaco">
+			<h2 id="spanrecomendacao">Recomendações Listadas: <span id="spantitulo"><%=results.size() %></span>.</h2>
+		</div>
+		<%
 			for (Recomendacao r : results.keySet()) {
 		%>
-			<p>
-			<div id="titrec">
-				Recomendacao <%=r.getRecomendacao() %>: <%=r.getNome()%> :
-			
-				<div class="tgl">
-				<p><%=r.getDescricao()%></p><br>
-				<% if (!results.get(r).equals(Boolean.TRUE.toString())){
-					%>
-							<pre class="brush: java;"><%=results.get(r)%></pre>
-					<%
-					}
-				 %>
-				 
-				 </div>
-			</div>
-			</p>	 	
-		<%
-			}
-		%>
-
-		<h2 id="resrec">Sugestões</h2>
+		
+		<br>
+		<div id="descricaorecomendacao" class="titrec">
+			<span id="spanrecomendacao">Recomendacao <%=r.getRecomendacao() %>: <%=r.getNome()%> :</span> <br>
+			<p><span id="titulo">Descrição: <%=r.getDescricao()%></span></p>	
+		</div>
+		
+		<span  id="spanexemplo">Exemplo Recomendação:</span>  <pre class="brush: sql;"><%=r.getExemplo() %></pre>
+		
+		<span id="spandetalhe">Código encontrado:</span><br>
+		<div class="expandicomprimi" id="expandicomprimi">
+			<% if (!results.get(r).equals(Boolean.TRUE.toString())){%>				
+				<pre class="brush: java;"><%=results.get(r)%></pre>						
+			<% } %>	 		
+		</div>
+		
+		<span id="descricaorecomendacao">Detalhes:<a href="#" id="idexpandir" class="expandi">+</a></span>
+		
+		<hr></hr>
+		<% } %>
+		
+	
+		<h2 id="sugestao">Sugestões</h2>
 		<%
 		Properties prop = (Properties) request.getAttribute("sugestoes");
 		int i=0;
 		for (Object s : prop.keySet()) {
+			
+		String propriedade = (String) prop.get(s);
+		String[] resultado = propriedade.split(";");
+	
 		%>
-		<p>
-		<div id="titrec">
-			Sugestão <%=i++ %>: <%=prop.get(s)%>
-			<div class="tgl"><br>
-				Aqui virá a descrição da sugestão
-			</div>
+		
+		<div id="titulorecomendacao" class="titulorecomendacao">
+			<span id="sugestao">Sugestão : <%=resultado[0]%> </span>	
 		</div>
-		</p>
 		
-		<%
-		}
-		%>
+		<div class="expandicomprimi" id="expandicomprimi">
+			<span id="titulo"><%=resultado[1] %></span>	
+		</div>
+		<span><a href="#" id="idexpandir" class="expandi">+</a></span>
 		
-	</div>
-		
-</div>
+		<% } %>
+				
+</div>		
 <br><br>
 <div id="rodape">
-Direitos Reservados Alexandre Cotta 2012.
+	<span>Direitos Reservados Alexandre Cotta 2012.</span>
 </div>
 </body>
 </html>

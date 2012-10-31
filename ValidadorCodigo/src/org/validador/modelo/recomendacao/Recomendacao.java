@@ -9,6 +9,8 @@ public interface Recomendacao<R> {
 	String getNome();
 
 	String getDescricao();
+	
+	String getExemplo();
 
 	R executa(Document doc);
 

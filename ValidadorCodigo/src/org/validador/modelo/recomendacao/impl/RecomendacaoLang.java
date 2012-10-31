@@ -9,32 +9,36 @@ public class RecomendacaoLang implements RecomendacaoBoolean{
 
 	@Override
 	public String getNome() {
-		return "Não há elementos que informem a linguagem da página.";
+		return "Não há elementos que informem o idioma da página.";
 	}
 
 	@Override
 	public String getDescricao() {
-		return "A linguagem da página deve ser informada.";
+		return "O idioma principal da página deve ser informado.";
 	}
 
 	@Override
 	public Boolean executa(Document doc) {
-		boolean lingua = false;
-		Element linguagem = doc.select("html").first();
-		String xmlLang = linguagem.attr("xml:lang");
-		String lang = linguagem.attr("lang");
+		boolean idioma = false;
+		Element idiomaPagina = doc.select("html").first();
+		String xmlLang = idiomaPagina.attr("xml:lang");
+		String lang = idiomaPagina.attr("lang");
 		Elements meta = doc
 				.select("meta[http-equiv=Content-Language]");
 
 		if (xmlLang.isEmpty() && lang.isEmpty() && meta.isEmpty()) {
-			lingua = true;
+			idioma = true;
 		}
-		return lingua;
+		return idioma;
 	}
 
 	@Override
 	public String getRecomendacao() {
 		return "16";
 	}
-
+	
+	@Override
+	public String getExemplo() {
+		return "xml:lang=pt-BR";
+	}
 }

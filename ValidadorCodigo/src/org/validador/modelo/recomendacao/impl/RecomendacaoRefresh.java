@@ -13,22 +13,28 @@ public class RecomendacaoRefresh implements RecomendacaoBoolean{
 
 	@Override
 	public String getDescricao() {
-		return "A página não pode atualizar sem que seja solicitado pelo usuário.";
+		return "Atualizações periodicas nas páginas podem prejudicar a usabildiade daquele usuário" +
+				" que utiliza de leitores de tela para navegação, pois necessitaram de um período de readaptação ao site.";
+				
 	}
 
 	@Override
 	public Boolean executa(Document doc) {
-		boolean ref = false;
+		boolean atualizacaoAutomatica = false;
 		Elements refresh = doc.select("meta[http-equiv=refresh]");
 		if (!refresh.isEmpty()) {
-			ref = true;
+			atualizacaoAutomatica = true;
 		}
-		return ref;
+		return atualizacaoAutomatica;
 	}
 
 	@Override
 	public String getRecomendacao() {
 		return "11";
 	}
-
+	
+	@Override
+	public String getExemplo() {
+		return "<META HTTP-EQUIV=\"Refresh\" CONTENT=\"20\">";
+	}
 }

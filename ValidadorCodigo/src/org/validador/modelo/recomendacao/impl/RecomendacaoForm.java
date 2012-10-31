@@ -14,30 +14,30 @@ public class RecomendacaoForm implements RecomendacaoCodigo {
 
 	@Override
 	public String getDescricao() {
-		return "Deve ser colocado uma legenda no formulario e a separação por fildsets.";
+		return "Deve ser utilizado fieldset no formulário para o " +
+				"agrupamento de informações e a utilização de legend para descrição do propósito do grupo";
 	}
 
 	@Override
 	public String executa(Document doc) {
-		String elemForm = "";
+		String elementoFormulario = "";
 		Elements forms = doc.select("form");
-		// Elements fieldset = form.select("fieldset");
-		// Elements legend = form.select("legend");
-		if (!forms.isEmpty()) {
-			for (Element element : forms) {
-				 Elements fieldset = element.select("fieldset");
-				 Elements legend = element.select("legend");
-//				if (!(element.select("fieldset") != null)
-//						|| !(element.select("legend") != null))
-				 if(fieldset.isEmpty() || legend.isEmpty())
-					elemForm += "\n" + element;
-			}
+		for (Element element : forms) {
+			Elements fieldset = element.select("fieldset");
+			Elements legend = element.select("legend");
+			if (fieldset.isEmpty() || legend.isEmpty())
+				elementoFormulario += "\n" + element;
 		}
-		return elemForm;
+		return elementoFormulario;
 	}
 
 	@Override
 	public String getRecomendacao() {
 		return "44";
+	}
+
+	@Override
+	public String getExemplo() {
+		return "<form ...><fieldset><legend>Buscar</legend>...</fieldset></form>";
 	}
 }

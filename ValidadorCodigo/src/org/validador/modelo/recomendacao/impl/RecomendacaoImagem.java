@@ -14,20 +14,21 @@ public class RecomendacaoImagem implements RecomendacaoCodigo {
 
 	@Override
 	public String getDescricao() {
-		return "É necessário colocar uma descrição nas imagens para os usuários que utilizam de leitores de tela possam compreender o conteúdo transmitido";
+		return "É necessário colocar uma descrição nas imagens possibilitando aos " +
+				"leitores de tela interpretar o conteúdo e retransmitir ao usuário";
 	}
 
 	@Override
 	public String executa(Document doc) {
-		String elemAlt = "";
-		Elements img = doc.select("img");
+		String elementoAlt = "";
+		Elements imagens = doc.select("img");
 
-		for (Element imagem : img) {
+		for (Element imagem : imagens) {
 			if (imagem.attr("alt").isEmpty()) {
-				elemAlt += "\n" + imagem;
+				elementoAlt += "\n" + imagem;
 			}
 		}
-		return elemAlt;
+		return elementoAlt;
 	}
 
 	@Override
@@ -35,4 +36,8 @@ public class RecomendacaoImagem implements RecomendacaoCodigo {
 		return "20";
 	}
 
+	@Override
+	public String getExemplo() {
+		return "<img src=\"foto\" alt=\"Descricao foto\"/>";
+	}
 }

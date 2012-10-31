@@ -14,26 +14,28 @@ public class RecomendacaoTabela implements RecomendacaoCodigo {
 
 	@Override
 	public String getDescricao() {
-		return "A tabela necessita ter um título e uma descrição.";
+		return "A tabela necessita ter um título descrito logo após a " +
+				"criação, e uma descrição referente a qual sua finalidade.";
 	}
 
 	@Override
 	public String executa(Document doc) {
-		String elemDescicao = "";
+		String elementoDescricao = "";
 		Elements tabelas = doc.select("table");
-		if (!tabelas.isEmpty()) {
-			for (Element tabela : tabelas)
-				if (tabela.attr("summary").isEmpty() || !(tabela.select("caption") != null)) {
-					elemDescicao += "\n" + tabela;
-				}
-		}
-
-		return elemDescicao;
+		for (Element tabela : tabelas)
+			if (tabela.attr("summary").isEmpty() || !(tabela.select("caption") != null)) {
+				elementoDescricao += "\n" + tabela;
+			}
+		return elementoDescricao;
 	}
 
 	@Override
 	public String getRecomendacao() {
 		return "23";
 	}
-
+	
+	@Override
+	public String getExemplo() {
+		return "<table summary=\"descrição tabela\"><caption>Título da tabela</caption></table>";
+	}
 }

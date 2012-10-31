@@ -13,17 +13,17 @@ public class RecomendacaoH1 implements RecomendacaoBoolean{
 
 	@Override
 	public String getDescricao() {
-		return "Deve ser colocado um elemento do h1.";
+		return "Cada página deve conter um único atributo H1, para fornecer uma navegação semântica através dos niveis de cabeçalhos.";
 	}
 
 	@Override
 	public Boolean executa(Document doc) {
-		boolean elemH1 = false;
+		boolean elementoH1 = false;
 		Elements h1 = doc.select("h1");
 		if (h1.isEmpty()){
-			elemH1 = true;
+			elementoH1 = true;
 		}
-		return elemH1;
+		return elementoH1;
 	}
 
 	@Override
@@ -31,4 +31,8 @@ public class RecomendacaoH1 implements RecomendacaoBoolean{
 		return "03";
 	}
 
+	@Override
+	public String getExemplo() {
+		return "<h1>Titulo principal da página</h1>";
+	}
 }

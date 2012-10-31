@@ -53,7 +53,6 @@ public class ValidadorServlet extends HttpServlet {
 		// recomendacoes
 		RecomendacaoExecutor exec = new RecomendacaoExecutor();
 		Map<Recomendacao, Object> results = exec.executar(doc);
-
 		req.setAttribute("resultados", results);
 
 		// sugestoes
@@ -61,7 +60,7 @@ public class ValidadorServlet extends HttpServlet {
 		Properties prop = ger.lerSugestoes();
 
 		req.setAttribute("sugestoes", prop);
-//
+
 		RequestDispatcher rd = req.getRequestDispatcher("resultado.jsp");
 		rd.forward(req, resp);
 	}
